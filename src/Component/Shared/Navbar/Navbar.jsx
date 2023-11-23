@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/Images/logo/logo.png'
 
 const Navbar = () => {
-    const user = 'sakib';
+    const user = null;
     const pages = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
 
@@ -41,7 +41,7 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
-
+            {/* log out and login condition by user  */}
             {
                 user ? <div className="dropdown dropdown-end border">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -49,7 +49,7 @@ const Navbar = () => {
                             <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
                         </div>
                     </label>
-                    <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-box w-52">
 
                         <li>{user?.displayName}</li>
                         <li>
