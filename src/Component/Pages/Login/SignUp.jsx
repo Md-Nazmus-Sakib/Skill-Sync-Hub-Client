@@ -114,7 +114,7 @@ const SignUp = () => {
                         <input id='photo' type="text" {...register("photo", {
                             required: "Photo url is Required"
                         })} className="input input-bordered w-full" />
-                        {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+                        {errors.photo && <p className='text-red-500'>{errors.photo.message}</p>}
                     </div>
                     <div className="form-control w-full">
                         <label htmlFor="email" className="text-xl my-2">Email</label>
