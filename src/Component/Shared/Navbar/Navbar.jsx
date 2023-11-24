@@ -66,9 +66,7 @@ const Navbar = () => {
 
                         <li>{user?.displayName}</li>
                         <li>
-                            <a className="justify-between">
-                                Dashboard
-                            </a>
+                            <Link to={'dashboard'}>Dashboard</Link>
                         </li>
                         <li><Link onClick={handelLogout} >LogOut</Link></li>
                     </ul>
