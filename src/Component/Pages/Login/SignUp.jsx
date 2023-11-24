@@ -5,12 +5,14 @@ import signUpImg from '../../../assets/Images/Login/register.jpg'
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
 import Button from '../../Button/Button';
+import useAxiosPublic from '../../../Hook/useAxiosPublic';
 
 const SignUp = () => {
     const { setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [signUpError, setSignUPError] = useState('');
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const handleSignUp = (data) => {
         console.log(data)
@@ -21,15 +23,31 @@ const SignUp = () => {
                 console.log(loggedUser)
                 updateUserProfile(data.name, data.photo)
                     .then(() => {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'User Register Successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                        setLoading(false)
-                        navigate('/')
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            userPhoto: data.photo
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database')
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    setLoading(false)
+                                    navigate('/')
+                                }
+                                else {
+                                    setLoading(false)
+                                    navigate('/')
+                                }
+                            })
+
 
                     })
                     .catch(error => {
@@ -49,8 +67,28 @@ const SignUp = () => {
         googleSignIn()
             .then(result => {
                 const loggedUser = result.user;
-                // console.log(loggedUser)
-                navigate('/')
+                console.log(loggedUser)
+                const savedUser = { name: loggedUser.displayName, email: loggedUser.email, photo: loggedUser.photoURL }
+                axiosPublic.post('/users', savedUser)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log('user added to the database')
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'User created successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setLoading(false)
+                            navigate('/')
+                        }
+                        else {
+                            setLoading(false)
+                            navigate('/')
+                        }
+                    })
+
             })
             .catch(error => {
                 setLoading(false)

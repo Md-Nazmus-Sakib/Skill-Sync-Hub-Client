@@ -5,11 +5,13 @@ import loginImg from '../../../assets/Images/Login/login.jpeg'
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
 import Button from '../../Button/Button';
+import useAxiosPublic from '../../../Hook/useAxiosPublic';
 
 const Login = () => {
     const { setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleLogin = data => {
@@ -39,8 +41,28 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const loggedUser = result.user;
-                // console.log(loggedUser)
-                navigate('/')
+                console.log(loggedUser)
+                const savedUser = { name: loggedUser.displayName, email: loggedUser.email, photo: loggedUser.photoURL }
+                axiosPublic.post('/users', savedUser)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log('user added to the database')
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'User created successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setLoading(false)
+                            navigate('/')
+                        }
+                        else {
+                            setLoading(false)
+                            navigate('/')
+                        }
+                    })
+
             })
             .catch(error => {
                 setLoading(false)
@@ -48,6 +70,7 @@ const Login = () => {
 
             })
     }
+
 
     return (
         <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${loginImg})`, backgroundSize: "cover" }} className='h-[800px] flex justify-center items-center p-2'>
