@@ -1,16 +1,64 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import signUpImg from '../../../assets/Images/Login/register.jpg'
+import useAuth from '../../../Hook/useAuth';
+import Swal from 'sweetalert2';
+import Button from '../../Button/Button';
 
 const SignUp = () => {
+    const { setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [signUpError, setSignUPError] = useState('');
-
+    const navigate = useNavigate();
     const handleSignUp = (data) => {
         console.log(data)
+        setSignUPError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+                updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'User Register Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setLoading(false)
+                        navigate('/')
+
+                    })
+                    .catch(error => {
+
+                        setSignUPError(error.message)
+                        setLoading(false)
+                    })
+            })
+            .catch(error => {
+
+                setSignUPError(error.message)
+                setLoading(false)
+            })
     }
+
+    const handelGoogleLogIn = () => {
+        googleSignIn()
+            .then(result => {
+                const loggedUser = result.user;
+                // console.log(loggedUser)
+                navigate('/')
+            })
+            .catch(error => {
+                setLoading(false)
+                setLoginError(error.message)
+
+            })
+    }
+
     return (
         <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${signUpImg})`, backgroundSize: "cover" }} className='min-h-[800px] flex justify-center items-center px-4 py-20'>
             <div className='w-full sm:w-2/3 lg:w-1/2 mx-auto bg-black bg-opacity-40 p-2 sm:p-10 lg:p-20 border rounded-lg'>
@@ -46,12 +94,13 @@ const SignUp = () => {
                         })} className="input input-bordered w-full" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
-                    <input className='btn bg-gradient-to-r from-violet-500 to-fuchsia-500 w-full mt-4 text-xl text-white' value="Sign Up" type="submit" />
+
+                    <div className='flex justify-center'><Button name={'Sign Up'}> <input type="submit" /></Button></div>
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
                 </form>
                 <p className='my-4'>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handelGoogleLogIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
 
             </div>
         </div>

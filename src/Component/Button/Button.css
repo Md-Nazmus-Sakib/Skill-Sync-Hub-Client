@@ -1,0 +1,12 @@
+button:hover rect {
+    stroke-dashoffset: 0;
+}
+
+rect {
+    stroke-dashoffset: 940;
+}
+
+button:hover {
+    background: green;
+
+}

@@ -1,14 +1,52 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import loginImg from '../../../assets/Images/Login/login.jpeg'
+import useAuth from '../../../Hook/useAuth';
+import Swal from 'sweetalert2';
+import Button from '../../Button/Button';
 
 const Login = () => {
+    const { setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const [loginError, setLoginError] = useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const handleLogin = (data) => {
-        console.log(data);
+    const navigate = useNavigate();
 
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const handleLogin = data => {
+        console.log(data);
+        setLoginError('');
+        signIn(data.email, data.password)
+            .then(result => {
+                const displayUser = result.user;
+                console.log(displayUser)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login Successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error)
+                setLoading(false)
+                setLoginError(error.message)
+            })
+    }
+
+    const handelGoogleLogIn = () => {
+        googleSignIn()
+            .then(result => {
+                const loggedUser = result.user;
+                // console.log(loggedUser)
+                navigate('/')
+            })
+            .catch(error => {
+                setLoading(false)
+                setLoginError(error.message)
+
+            })
     }
 
     return (
@@ -36,14 +74,14 @@ const Login = () => {
 
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    <input className='btn bg-gradient-to-r from-violet-500 to-fuchsia-500 w-full my-4 text-xl text-white' value="Login" type="submit" />
+                    <div className='flex justify-center'><Button name={'Login'}> <input type="submit" /></Button></div>
                     <div>
                         {loginError && <p className='text-red-600'>{loginError}</p>}
                     </div>
                 </form>
                 <p className='mt-2'>New to Please  <Link className='text-secondary' to="/signUp">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handelGoogleLogIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

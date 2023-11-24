@@ -1,9 +1,17 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/Images/logo/logo.png'
+import useAuth from '../../../Hook/useAuth';
 
 const Navbar = () => {
-    const user = null;
+    const { user, loading, setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
+    const handelLogout = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
+
+
     const pages = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
 
@@ -14,7 +22,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className="navbar text-xl font-bold sticky z-20 bg-opacity-70 bg-gradient-to-r from-violet-500 to-fuchsia-500  max-w-screen-xl px-2 sm:px-12 justify-between ">
+        <div className="navbar text-xl font-bold sticky top-0 z-50 bg-opacity-70 bg-gradient-to-r from-violet-500 to-fuchsia-500  max-w-screen-xl px-2 sm:px-12 justify-between ">
             <div className="navbar-start grow">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -43,11 +51,16 @@ const Navbar = () => {
             </div>
             {/* log out and login condition by user  */}
             {
-                user ? <div className="dropdown dropdown-end border">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+                user ? <div className="dropdown dropdown-end">
+                    <label tabIndex={0}>
+                        <div className="avatar">
+                            <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img src={user?.photoURL} />
+                            </div>
                         </div>
+                        {/* <div className="w-10 rounded-full">
+                            <img alt="Tailwind CSS Navbar component" />
+                        </div> */}
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white rounded-box w-52">
 
@@ -57,7 +70,7 @@ const Navbar = () => {
                                 Dashboard
                             </a>
                         </li>
-                        <li><Link >LogOut</Link></li>
+                        <li><Link onClick={handelLogout} >LogOut</Link></li>
                     </ul>
                 </div> :
                     <div className='text-white'> <NavLink to={'/login'}>Login</NavLink></div>
