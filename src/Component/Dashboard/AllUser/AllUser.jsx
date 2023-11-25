@@ -4,7 +4,7 @@ import useAxiosSecret from '../../../Hook/useAxiosSecret';
 import Swal from 'sweetalert2';
 
 const AllUser = () => {
-    const [users, , refetch] = useAllUser();
+    const [users, , userRefetch] = useAllUser();
     const axiosSecure = useAxiosSecret();
     const handelMakeAdmin = (user) => {
         Swal.fire({
@@ -22,7 +22,7 @@ const AllUser = () => {
                     .then(res => {
                         // console.log(res.data)
                         if (res.data.modifiedCount > 0) {
-                            refetch();
+                            userRefetch();
                             Swal.fire({
                                 position: "top-end",
                                 icon: "success",
@@ -32,6 +32,7 @@ const AllUser = () => {
                             });
                         }
                     })
+                    .catch(error => console.log(error))
             }
         });
 

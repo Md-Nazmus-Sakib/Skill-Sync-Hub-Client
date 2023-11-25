@@ -26,7 +26,8 @@ const TeachOn = () => {
             .then(res => {
                 console.log(res.data)
                 if (res.data.insertedId) {
-                    console.log('user added to the database')
+                    // console.log('user added to the database')
+                    reset()
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -70,9 +71,9 @@ const TeachOn = () => {
                         <select id='experience' defaultValue="" {...register('experience', { required: 'Experience field is required' })}
                             className="select select-bordered w-full">
                             <option value='' disabled hidden>Choose Experience</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="experienced">Experienced</option>
-                            <option value="someIdea">Some Idea</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Experienced">Experienced</option>
+                            <option value="SomeIdea">Some Idea</option>
                         </select>
                         {errors.experience && <p className='text-red-500'>{errors.experience.message}</p>}
                     </div>
@@ -81,11 +82,11 @@ const TeachOn = () => {
                         <select id='category' defaultValue="" {...register('category', { required: 'Category must Required' })}
                             className="select select-bordered w-full">
                             <option value='' disabled hidden>Choose Category</option>
-                            <option value="webDesign">Web Design</option>
-                            <option value="digitalMarketing">Digital Marketing</option>
-                            <option value="graphicDesign">Graphic Design</option>
-                            <option value="seo">Search Engine Optimization</option>
-                            <option value="programming">Programming</option>
+                            <option value="Web Design">Web Design</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="SEO">Search Engine Optimization</option>
+                            <option value="Programming">Programming</option>
                         </select>
                         {errors.category && <p className='text-red-500'>{errors.category.message}</p>}
                     </div>

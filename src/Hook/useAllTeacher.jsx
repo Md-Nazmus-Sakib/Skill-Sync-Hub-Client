@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useAllTeacher = () => {
     const axiosSecure = useAxiosSecret();
-    const { data: teachers = [], isPending: loading, refetch } = useQuery({
+    const { data: teachers = [], isPending: loading, refetch: teacherRefetch } = useQuery({
         queryKey: ['teachers'],
         queryFn: async () => {
             const res = await axiosSecure.get('/teacher');
@@ -12,7 +12,7 @@ const useAllTeacher = () => {
         }
     })
 
-    return [teachers, loading, refetch]
+    return [teachers, loading, teacherRefetch]
 };
 
 
