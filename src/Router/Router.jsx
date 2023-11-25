@@ -12,6 +12,9 @@ import TeacherRequest from "../Component/Dashboard/TeacherRequest/TeacherRequest
 import AllUser from "../Component/Dashboard/AllUser/AllUser";
 import AllClass from "../Component/Dashboard/AllClass/AllClass";
 import Profile from "../Component/Dashboard/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
+import AddClass from "../Component/Dashboard/AddClass/AddClass";
+import MyClass from "../Component/Dashboard/MyClass/MyClass";
 
 export const router = createBrowserRouter([
     {
@@ -31,23 +34,31 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: 'request',
-                element: <TeacherRequest></TeacherRequest>
+                element: <PrivateRoute><TeacherRequest></TeacherRequest></PrivateRoute>
             },
             {
                 path: 'users',
-                element: <AllUser></AllUser>
+                element: <PrivateRoute><AllUser></AllUser></PrivateRoute>
             },
             {
                 path: 'classes',
-                element: <AllClass></AllClass>
+                element: <PrivateRoute><AllClass></AllClass></PrivateRoute>
             },
             {
                 path: 'profile',
-                element: <Profile></Profile>
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
+            },
+            {
+                path: 'addClass',
+                element: <PrivateRoute><AddClass></AddClass></PrivateRoute>
+            },
+            {
+                path: 'myClass',
+                element: <PrivateRoute><MyClass></MyClass></PrivateRoute>
             },
         ]
 

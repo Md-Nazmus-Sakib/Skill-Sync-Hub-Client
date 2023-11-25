@@ -62,7 +62,7 @@ const TeachOn = () => {
                     <div className="form-control w-full">
                         <label htmlFor="title" className="text-xl my-2">Title</label>
                         <input id='title' autoComplete="title" type="text" {...register("title", {
-                            required: "Name is Required"
+                            required: "Title is Required"
                         })} className="input input-bordered w-full" />
                         {errors.title && <p className='text-red-500'>{errors.title.message}</p>}
                     </div>

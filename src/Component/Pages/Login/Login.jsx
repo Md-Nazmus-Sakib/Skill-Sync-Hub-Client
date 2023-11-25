@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../../assets/Images/Login/login.jpeg'
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
@@ -10,8 +10,13 @@ import useAxiosPublic from '../../../Hook/useAxiosPublic';
 const Login = () => {
     const { setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const [loginError, setLoginError] = useState('');
-    const navigate = useNavigate();
+
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
+
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleLogin = data => {
@@ -28,7 +33,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                navigate('/')
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log(error)
@@ -55,11 +60,11 @@ const Login = () => {
                                 timer: 1500
                             });
                             setLoading(false)
-                            navigate('/')
+                            navigate(from, { replace: true });
                         }
                         else {
                             setLoading(false)
-                            navigate('/')
+                            navigate(from, { replace: true });
                         }
                     })
 

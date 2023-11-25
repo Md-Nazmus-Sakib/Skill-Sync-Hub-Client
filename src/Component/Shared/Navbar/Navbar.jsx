@@ -2,9 +2,17 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/Images/logo/logo.png'
 import useAuth from '../../../Hook/useAuth';
+import useUserRole from '../../../Hook/useUserRole';
 
 const Navbar = () => {
     const { user, loading, setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
+    const [userRole, isLoading] = useUserRole();
+    // const [eachUser] = useSingleUser();
+    // const role = userRole.role;
+    if (isLoading) {
+        return <p>Loading ...</p>
+    }
+    const userStatus = userRole.role;
     const handelLogout = () => {
         logOut()
             .then(() => { })
@@ -65,9 +73,12 @@ const Navbar = () => {
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gradient-to-r from-black to-fuchsia-500 text-white rounded-box w-52">
 
                         <li>{user?.displayName}</li>
-                        <li>
-                            <Link to={'dashboard'}>Dashboard</Link>
-                        </li>
+                        {
+                            userStatus && <li>
+                                <Link to={'dashboard'}>Dashboard</Link>
+                            </li>
+                        }
+
                         <li><Link onClick={handelLogout} >LogOut</Link></li>
                     </ul>
                 </div> :
