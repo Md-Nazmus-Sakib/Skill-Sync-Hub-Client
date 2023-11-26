@@ -2,7 +2,7 @@ import React from 'react';
 import useAxiosSecret from './useAxiosSecret';
 import { useQuery } from '@tanstack/react-query';
 
-const useSingleClass = ({ id }) => {
+const useSingleClass = (id) => {
     const axiosSecure = useAxiosSecret();
     const { data: singleCourse = [], isPending: loading, refetch: singleCourseRefetch } = useQuery({
         queryKey: ['singleCourse'],

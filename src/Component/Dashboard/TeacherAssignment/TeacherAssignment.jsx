@@ -1,10 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+
 import TeacherAssignmentModal from './TeacherAssignmentModal';
 
+
 const TeacherAssignment = () => {
-    const { id } = useParams();
-    console.log(id)
+
+
     return (
         <section >
             <div className='flex justify-center flex-col my-12 gap-6'>
@@ -34,7 +35,11 @@ const TeacherAssignment = () => {
                     Add Assignment
                 </button>
             </div>
-            <TeacherAssignmentModal></TeacherAssignmentModal>
+            <TeacherAssignmentModal
+            // handelAssignmentSave={handelAssignmentSave}
+            // handelAssignmentClose={handelAssignmentClose}
+
+            ></TeacherAssignmentModal>
         </section>
     );
 };
