@@ -80,7 +80,7 @@ const AllUser = () => {
                                 }
 
                                 <td>
-                                    {user?.role === 'Admin' ? <p className='text-slate-500' disabled>Admin</p> : <button onClick={() => handelMakeAdmin(user)}>Admin</button>}
+                                    {user?.role === 'Admin' ? <p className='text-slate-500' disabled>Admin</p> : <button className='btn btn-primary' onClick={() => handelMakeAdmin(user)}>Admin</button>}
                                 </td>
                             </tr>)}
 

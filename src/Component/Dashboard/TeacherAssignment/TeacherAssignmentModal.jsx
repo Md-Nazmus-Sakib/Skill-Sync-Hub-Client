@@ -83,7 +83,7 @@ const TeacherAssignmentModal = () => {
                         </div>
 
 
-                        <div className='flex justify-center'><Button name={'Add Class'}> <input type="submit" /></Button></div>
+                        <div className='flex justify-center'><Button name={'Add Assignment'}> <input type="submit" /></Button></div>
 
                     </form>
                     <button onClick={handelAssignmentClose} className="btn bg-orange-500 text-white">Close!</button>

@@ -23,7 +23,7 @@ const Navbar = () => {
     const pages = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
 
-        <li><NavLink to={'/allClass'}>All Class</NavLink></li>
+        <li><NavLink to={'/allCourse'}>All Course</NavLink></li>
         <li><NavLink to={'/teachOn'}>Teach On</NavLink></li>
 
 

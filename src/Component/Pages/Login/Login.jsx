@@ -20,12 +20,12 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleLogin = data => {
-        console.log(data);
+        // console.log(data);
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
                 const displayUser = result.user;
-                console.log(displayUser)
+                // console.log(displayUser)
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
