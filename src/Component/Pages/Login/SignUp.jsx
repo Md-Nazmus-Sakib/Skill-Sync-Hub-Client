@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signUpImg from '../../../assets/Images/Login/register.jpg'
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
@@ -14,6 +14,8 @@ const SignUp = () => {
     const [signUpError, setSignUPError] = useState('');
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const handleSignUp = (data) => {
         console.log(data)
         setSignUPError('');
@@ -81,11 +83,11 @@ const SignUp = () => {
                                 timer: 1500
                             });
                             setLoading(false)
-                            navigate('/')
+                            navigate(from, { replace: true });
                         }
                         else {
                             setLoading(false)
-                            navigate('/')
+                            navigate(from, { replace: true });
                         }
                     })
 

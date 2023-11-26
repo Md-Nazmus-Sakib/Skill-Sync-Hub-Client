@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useAuth from '../../Hook/useAuth';
 import useAxiosSecret from '../../Hook/useAxiosSecret';
 import Swal from 'sweetalert2';
+import './CheckoutForm.css'
 
 const CheckoutForm = ({ price, singleCourse }) => {
 
@@ -82,23 +83,42 @@ const CheckoutForm = ({ price, singleCourse }) => {
             }
             axiosSecure.post('/payment', payment)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.insertedId) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Payment Successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        const studentInfo = {
+                            email: user?.email,
+                            name: user?.displayName,
+                            photo: user?.photoURL,
+                            title,
+                            courseId: _id,
+                            teacherEmail,
+                            transactionId: paymentIntent.id,
+                            price,
+                            date: new Date()
+                        }
+                        axiosSecure.post('/student', studentInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Payment Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                }
+                            })
+
                     }
                 })
+
         }
     }
     return (
-        <>
-            <form className='w-2/3 mx-auto' onSubmit={handleSubmit}>
+        <div className='flex justify-center flex-col'>
+            <form className='w-full sm:w-1/2' onSubmit={handleSubmit}>
                 <CardElement
+
                     options={{
                         style: {
                             base: {
@@ -119,9 +139,9 @@ const CheckoutForm = ({ price, singleCourse }) => {
                 </button>
             </form>
             {
-                transactionId && <p className='text-white'>Transaction completed with transaction Id :{transactionId}</p>
+                transactionId && <p className='text-white text-center'>Transaction completed with transaction Id :{transactionId}</p>
             }
-        </>
+        </div>
     );
 };
 

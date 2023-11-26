@@ -11,9 +11,9 @@ const Payment = () => {
     const { price } = singleCourse;
     // console.log(id)
     return (
-        <div className='w-full mx-10'>
+        <div className='w-full'>
 
-            <h1>payment</h1>
+            <h1 className='text-5xl text-center my-12'>Payment</h1>
             <Elements stripe={stripePromise}>
                 <CheckoutForm price={price} singleCourse={singleCourse} />
             </Elements>
