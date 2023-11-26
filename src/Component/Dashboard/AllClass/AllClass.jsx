@@ -1,9 +1,74 @@
-import { useQuery } from '@tanstack/react-query';
+
 import useAxiosSecret from '../../../Hook/useAxiosSecret';
 import useAllClass from '../../../Hook/useAllClass';
+import Swal from 'sweetalert2';
 
 const AllClass = () => {
     const [courses, loading, coursesRefetch] = useAllClass();
+    const axiosSecure = useAxiosSecret();
+
+    const handelCourseApproved = (course) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: `${course?.title} Is Approved!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Make Approved!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/class/${course._id}`)
+                    .then(res => {
+                        // console.log(res.data)
+                        if (res.data.modifiedCount > 0) {
+                            coursesRefetch();
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: `${course?.title} is Approved Successfully!`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                    .catch(error => console.log(error))
+            }
+        })
+    }
+
+    const handelCourseRejected = (course) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: `${course?.title} Is Rejected!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Rejected!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/class/reject/${course._id}`)
+                    .then(res => {
+                        // console.log(res.data)
+                        if (res.data.modifiedCount > 0) {
+                            coursesRefetch();
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: `${course?.title} is Rejected Successfully!`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+
+                    })
+                    .catch(error => console.log(error))
+            }
+
+        })
+
+    }
 
     return (
         <div>
@@ -41,14 +106,21 @@ const AllClass = () => {
                                 </td>
                                 <td>{course?.title} </td>
                                 <td>{course?.teacherEmail}</td>
-                                <td>{course?.details}</td>
                                 {
-                                    course?.status === 'pending' ? <td><button>Approved</button></td> :
-                                        <td><button>Approved</button></td>
+                                    course?.details.length > 20 ? <td>{course?.details.slice(0, 20)}...</td> :
+                                        <td>{course?.details}</td>
                                 }
                                 {
-                                    course?.status === 'pending' ? <td><button>Reject</button></td> :
-                                        <td><button>Approved</button></td>
+                                    course?.status === 'pending' ? <td><button onClick={() => handelCourseApproved(course)} className='btn btn-primary text-white'>Approved</button></td> :
+                                        <td><button disabled className='btn btn-primary text-white'>Approved</button></td>
+                                }
+                                {
+                                    course?.status === 'pending' ? <td><button onClick={() => handelCourseRejected(course)} className='btn btn-warning text-white'>Reject</button></td> :
+                                        <td><button disabled className='btn btn-warning text-white'>Reject</button></td>
+                                }
+                                {
+                                    course?.status === 'approved' ? <td><button className='btn btn-secondary text-white'>SeeProgress</button></td> :
+                                        <td><button disabled className='btn btn-secondary text-white'>SeeProgress</button></td>
                                 }
 
 

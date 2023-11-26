@@ -15,6 +15,7 @@ import Profile from "../Component/Dashboard/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import AddClass from "../Component/Dashboard/AddClass/AddClass";
 import MyClass from "../Component/Dashboard/MyClass/MyClass";
+import TeacherAssignment from "../Component/Dashboard/TeacherAssignment/TeacherAssignment";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path: 'myClass',
                 element: <PrivateRoute><MyClass></MyClass></PrivateRoute>
+            },
+            {
+                path: 'myClass/:id',
+                element: <PrivateRoute><TeacherAssignment></TeacherAssignment></PrivateRoute>
             },
         ]
 

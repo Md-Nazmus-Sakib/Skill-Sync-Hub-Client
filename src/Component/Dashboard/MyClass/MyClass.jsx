@@ -6,6 +6,7 @@ import MyClassModal from './MyClassModal';
 
 import useAxiosSecret from '../../../Hook/useAxiosSecret';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 const MyClass = () => {
@@ -110,10 +111,10 @@ const MyClass = () => {
 
                             </div>
                             {
-                                teacherClass?.status === 'pending' ? <div className='flex justify-center'>
-                                    <button disabled className='btn'>SEE DETAILS </button> </div> : <div className='flex justify-center'>
-                                    <Button name={'See Details'}></Button>
-                                </div>
+                                teacherClass?.status === 'approved' ? <div className='flex justify-center'><Link to={`/dashboard/myClass/${teacherClass?._id}`}> <Button name={'See Details'}></Button></Link>  </div>
+                                    :
+                                    <div className='flex justify-center'><button className='btn'>SEE DETAILS </button>
+                                    </div>
                             }
 
 
