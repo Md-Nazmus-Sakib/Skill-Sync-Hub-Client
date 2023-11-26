@@ -24,7 +24,7 @@ const TeachOn = () => {
         }
         axiosSecure.post('/teacher', teacherInfo)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.insertedId) {
                     // console.log('user added to the database')
                     reset()

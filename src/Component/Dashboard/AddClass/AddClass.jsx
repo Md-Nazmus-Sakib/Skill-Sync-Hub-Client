@@ -3,12 +3,42 @@ import Button from '../../Button/Button';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hook/useAuth';
 import img from '../../../assets/Images/Login/login.jpeg'
+import useAxiosSecret from '../../../Hook/useAxiosSecret';
+import Swal from 'sweetalert2';
 
 const AddClass = () => {
     const { user } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const axiosSecure = useAxiosSecret();
 
     const handleAddClass = (data) => {
+        const classDetail = {
+            teacherName: user?.displayName,
+            teacherEmail: user?.email,
+            teacherPhoto: user?.photoURL,
+            title: data.title,
+            coursePhoto: data.photo,
+            price: parseInt(data.price),
+            details: data.details,
+            status: 'pending'
+        }
+        axiosSecure.post('/class', classDetail)
+            .then(res => {
+                // console.log(res.data)
+                if (res.data.insertedId) {
+
+                    reset()
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Class Added Successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+
+            })
+            .catch(error => console.log(error.message))
 
     }
     return (
@@ -51,17 +81,17 @@ const AddClass = () => {
                         {errors.price && <p className='text-red-500'>{errors.price.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="detail" className="text-xl my-2">Details</label>
-                        <textarea id='detail' type="textarea" {...register("detail", {
-                            required: "Detail is Required"
+                        <label htmlFor="details" className="text-xl my-2">Details</label>
+                        <textarea id='details' type="textarea" {...register("details", {
+                            required: "Details is Required"
                         })} className="input input-bordered h-36 w-full" />
 
-                        {errors.detail && <p className='text-red-500'>{errors.detail.message}</p>}
+                        {errors.details && <p className='text-red-500'>{errors.details.message}</p>}
                     </div>
 
 
                     <div className='flex justify-center'><Button name={'Add Class'}> <input type="submit" /></Button></div>
-                    {/* {signUpError && <p className='text-red-600'>{signUpError}</p>} */}
+
                 </form>
 
             </div>
