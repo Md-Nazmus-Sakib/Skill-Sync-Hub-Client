@@ -18,6 +18,7 @@ import MyClass from "../Component/Dashboard/MyClass/MyClass";
 import TeacherAssignment from "../Component/Dashboard/TeacherAssignment/TeacherAssignment";
 import AllCourse from "../Component/Pages/AllCourse/AllCourse";
 import CourseDetails from "../Component/Pages/AllCourse/CourseDetails";
+import Payment from "../Component/Payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
             {
                 path: "/courseDetail/:id",
                 element: <PrivateRoute><CourseDetails></CourseDetails></PrivateRoute>
+            },
+            {
+                path: "/courseDetail/pay/:id",
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
             }
         ],
     },
