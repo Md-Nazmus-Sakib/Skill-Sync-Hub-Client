@@ -19,6 +19,8 @@ import TeacherAssignment from "../Component/Dashboard/TeacherAssignment/TeacherA
 import AllCourse from "../Component/Pages/AllCourse/AllCourse";
 import CourseDetails from "../Component/Pages/AllCourse/CourseDetails";
 import Payment from "../Component/Payment/Payment";
+import EnrollClass from "../Component/Dashboard/EnrollClass/EnrollClass";
+import MyEnrollClassDetail from "../Component/Dashboard/EnrollClass/MyEnrollClassDetail";
 
 export const router = createBrowserRouter([
     {
@@ -79,6 +81,14 @@ export const router = createBrowserRouter([
             {
                 path: 'myClass/:id',
                 element: <PrivateRoute><TeacherAssignment></TeacherAssignment></PrivateRoute>
+            },
+            {
+                path: 'enrollClass',
+                element: <PrivateRoute><EnrollClass></EnrollClass></PrivateRoute>
+            },
+            {
+                path: 'my-class/:id',
+                element: <PrivateRoute><MyEnrollClassDetail></MyEnrollClassDetail></PrivateRoute>
             },
         ]
 

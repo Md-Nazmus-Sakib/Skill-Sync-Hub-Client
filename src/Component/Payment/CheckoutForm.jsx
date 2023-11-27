@@ -94,18 +94,26 @@ const CheckoutForm = ({ price, singleCourse }) => {
                             teacherEmail,
                             transactionId: paymentIntent.id,
                             price,
-                            date: new Date()
+                            date: new Date(),
+                            userStatus: 'Student'
                         }
                         axiosSecure.post('/student', studentInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'Payment Successfully',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    })
+                                    axiosSecure.patch(`/users/student/${user?.email}`)
+                                        .then(res => {
+                                            if (res.data.modifiedCount > 0) {
+                                                Swal.fire({
+                                                    position: 'top-end',
+                                                    icon: 'success',
+                                                    title: 'Payment Successfully',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
+                                            }
+                                        })
+
+
                                 }
                             })
 

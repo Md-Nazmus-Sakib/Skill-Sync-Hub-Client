@@ -39,6 +39,13 @@ const DashboardLayout = () => {
                                 <li><NavLink to={'/dashboard/profile'}>Profile</NavLink></li>
                             </>
                         }
+                        {
+                            userStatus === 'Student' && <>
+                                <li><NavLink to={'/dashboard/enrollClass'}>My Enroll Class</NavLink></li>
+
+                                <li><NavLink to={'/dashboard/profile'}>Profile</NavLink></li>
+                            </>
+                        }
 
 
                         <div className="divider"></div>
