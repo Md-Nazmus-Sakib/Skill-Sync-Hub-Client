@@ -4,22 +4,63 @@ import useAuth from '../../../Hook/useAuth';
 import useAssignmentById from '../../../Hook/useAssignmentById';
 
 import { Rating } from '@smastrom/react-rating'
+import useAxiosSecret from '../../../Hook/useAxiosSecret';
+import Swal from 'sweetalert2';
 
 
 
 const MyEnrollClassDetail = () => {
     const { user } = useAuth();
     const { id } = useParams();
+    const axiosSecure = useAxiosSecret();
     const [assignments, loading, assignmentRefetch] = useAssignmentById(id)
+
     const [rating, setRating] = useState(0);
     const [isOpen, setIsOpen] = useState(false)
     const handelFeedback = (e) => {
         e.preventDefault();
         const description = e.target.description.value;
-        // const rating = rating;
-        console.log(description, rating)
-    }
+        const feedback = { description, rating, userName: user?.displayName, userEmail: user?.email, userImg: user?.photoURL }
+        axiosSecure.post('/feedback', feedback)
+            .then(res => {
 
+                if (res.data.insertedId) {
+
+
+                    setIsOpen(false)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Feedback Successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+
+            })
+            .catch(error => console.log(error.message))
+    }
+    const handelAssignmentComplete = (assignment) => {
+        const { _id, ...newAssignment } = assignment;
+        const submitAssignmentData = {
+            userEmail: user?.email,
+            assignmentId: _id,
+            ...newAssignment,
+        }
+        axiosSecure.post('/submitAssignment', submitAssignmentData)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Assignment Submit Successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => console.log(error.message))
+    }
 
     return (
         <div className='my-12'>
@@ -43,8 +84,7 @@ const MyEnrollClassDetail = () => {
                                         <span className="label-text">Rating</span>
                                     </label>
 
-                                    <Rating emptyColor="gray"
-                                        fullColor="gold"
+                                    <Rating
                                         value={rating}
                                         onChange={setRating}
                                     />
@@ -79,7 +119,7 @@ const MyEnrollClassDetail = () => {
 
 
                                 <td>
-                                    <button className='btn btn-primary'>Submit</button>
+                                    <button onClick={() => handelAssignmentComplete(assignment)} className='btn btn-primary'>Submit</button>
                                 </td>
                             </tr>)}
 

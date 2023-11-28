@@ -1,32 +1,45 @@
 import React from 'react';
 
 import TeacherAssignmentModal from './TeacherAssignmentModal';
+import { useParams } from 'react-router-dom';
+import useSingleClass from '../../../Hook/useSingleClass';
+import useAxiosSecret from '../../../Hook/useAxiosSecret';
+import { useQuery } from '@tanstack/react-query';
 
 
 const TeacherAssignment = () => {
+    const { id } = useParams();
+    const axiosSecure = useAxiosSecret();
+    const { data: progress = [] } = useQuery({
+        queryKey: ['progress'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/teacher-progress/${id}`);
+            return res.data;
+        }
+    })
 
 
     return (
         <section >
             <div className='flex justify-center flex-col my-12 gap-6'>
-                <div className="stats stats-vertical sm:stats-horizontal shadow">
+                <div className="stats stats-vertical sm:stats-horizontal shadow text-center">
 
                     <div className="stat">
                         <div className="stat-title">Total Enrollment</div>
-                        <div className="stat-value">31K</div>
-                        <div className="stat-desc">Jan 1st - Feb 1st</div>
+                        <div className="stat-value">{progress.totalEnroll}</div>
+
                     </div>
 
                     <div className="stat">
                         <div className="stat-title">Total Assignment</div>
-                        <div className="stat-value">4,200</div>
-                        <div className="stat-desc">↗︎ 400 (22%)</div>
+                        <div className="stat-value">{progress.totalAssignment}</div>
+
                     </div>
 
                     <div className="stat">
                         <div className="stat-title">Assignment Submit</div>
-                        <div className="stat-value">1,200</div>
-                        <div className="stat-desc">↘︎ 90 (14%)</div>
+                        <div className="stat-value">{progress.assignmentSubmit}</div>
+
                     </div>
 
                 </div>
@@ -36,8 +49,7 @@ const TeacherAssignment = () => {
                 </button>
             </div>
             <TeacherAssignmentModal
-            // handelAssignmentSave={handelAssignmentSave}
-            // handelAssignmentClose={handelAssignmentClose}
+
 
             ></TeacherAssignmentModal>
         </section>
