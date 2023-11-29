@@ -48,43 +48,43 @@ const AddClass = () => {
 
                 <form onSubmit={handleSubmit(handleAddClass)}>
                     <div className="form-control w-full">
-                        <label htmlFor="name11" className="text-xl my-2">Teacher Name</label>
+                        <label htmlFor="name11" className="text-xl my-2 text-white">Teacher Name</label>
                         <input id='name11' autoComplete="name" disabled placeholder={user?.displayName} type="text" {...register("name", {
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                     </div>
 
                     <div className="form-control w-full">
-                        <label htmlFor="email11" className="text-xl my-2">Teacher Email</label>
+                        <label htmlFor="email11" className="text-xl my-2 text-white">Teacher Email</label>
                         <input id='email11' autoComplete="email" disabled placeholder={user?.email} type="text" {...register("email", {
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                     </div>
 
                     <div className="form-control w-full">
-                        <label htmlFor="title22" className="text-xl my-2">Title</label>
+                        <label htmlFor="title22" className="text-xl my-2 text-white">Title</label>
                         <input id='title22' autoComplete="title" type="text" {...register("title", {
                             required: "Title is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.title && <p className='text-red-500'>{errors.title.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="photo2" className="text-xl my-2">Courses Photo Url</label>
+                        <label htmlFor="photo2" className="text-xl my-2 text-white">Courses Photo Url</label>
                         <input id='photo2' type="text" {...register("photo", {
                             required: "Photo url is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.photo && <p className='text-red-500'>{errors.photo.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="price" className="text-xl my-2">Price</label>
+                        <label htmlFor="price" className="text-xl my-2 text-white">Price</label>
                         <input id='price' type="number" {...register("price", {
                             required: "Price is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.price && <p className='text-red-500'>{errors.price.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="details" className="text-xl my-2">Details</label>
+                        <label htmlFor="details" className="text-xl my-2 text-white">Details</label>
                         <textarea id='details' type="textarea" {...register("details", {
                             required: "Details is Required"
-                        })} className="input input-bordered h-36 w-full" />
+                        })} className="input input-bordered h-36 w text-white-full" />
 
                         {errors.details && <p className='text-red-500'>{errors.details.message}</p>}
                     </div>

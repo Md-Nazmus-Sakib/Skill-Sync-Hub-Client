@@ -17,7 +17,7 @@ const SignUp = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const handleSignUp = (data) => {
-        console.log(data)
+        // console.log(data)
         setSignUPError('');
         createUser(data.email, data.password)
             .then(result => {
@@ -33,7 +33,7 @@ const SignUp = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    console.log('user added to the database')
+                                    // console.log('user added to the database')
                                     Swal.fire({
                                         position: 'top-end',
                                         icon: 'success',
@@ -105,33 +105,33 @@ const SignUp = () => {
                 <h2 className='text-3xl text-center text-white'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
                     <div className="form-control w-full">
-                        <label htmlFor="name" className="text-xl my-2">Name</label>
+                        <label htmlFor="name" className="text-xl my-2 text-white">Name</label>
                         <input id='name' autoComplete="name" type="text" {...register("name", {
                             required: "Name is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="photo" className="text-xl my-2">Photo Url</label>
+                        <label htmlFor="photo" className="text-xl my-2 text-white">Photo Url</label>
                         <input id='photo' type="text" {...register("photo", {
                             required: "Photo url is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.photo && <p className='text-red-500'>{errors.photo.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="email" className="text-xl my-2">Email</label>
+                        <label htmlFor="email" className="text-xl my-2 text-white">Email</label>
                         <input id='email' autoComplete="email" type="email" {...register("email", {
                             required: "Email is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="password" className="text-xl my-2">Password</label>
+                        <label htmlFor="password" className="text-xl my-2 text-white">Password</label>
                         <input id='password' type="password" {...register("password", {
                             required: "Password is required",
                             minLength: { value: 6, message: "Password must be 6 characters long" },
                             pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*%^])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
 

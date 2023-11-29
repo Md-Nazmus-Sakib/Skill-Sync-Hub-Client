@@ -60,33 +60,33 @@ const TeachOn = () => {
                 </div>
                 <form onSubmit={handleSubmit(handleTeachOn)}>
                     <div className="form-control w-full">
-                        <label htmlFor="title" className="text-xl my-2">Title</label>
+                        <label htmlFor="title" className="text-xl my-2 text-white">Title</label>
                         <input id='title' autoComplete="title" type="text" {...register("title", {
                             required: "Title is Required"
-                        })} className="input input-bordered w-full" />
+                        })} className="input input-bordered w-full text-white" />
                         {errors.title && <p className='text-red-500'>{errors.title.message}</p>}
                     </div>
                     <div className="form-control w-full my-6">
-                        <label htmlFor="experience" className="text-xl my-2">Experience</label>
+                        <label htmlFor="experience" className="text-xl my-2 text-white">Experience</label>
                         <select id='experience' defaultValue="" {...register('experience', { required: 'Experience field is required' })}
                             className="select select-bordered w-full">
                             <option value='' disabled hidden>Choose Experience</option>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Experienced">Experienced</option>
-                            <option value="SomeIdea">Some Idea</option>
+                            <option className='text-white' value="Beginner">Beginner</option>
+                            <option className='text-white' value="Experienced">Experienced</option>
+                            <option className='text-white' value="SomeIdea">Some Idea</option>
                         </select>
                         {errors.experience && <p className='text-red-500'>{errors.experience.message}</p>}
                     </div>
                     <div className="form-control w-full my-6">
-                        <label htmlFor="category" className="text-xl my-2">Category</label>
+                        <label htmlFor="category" className="text-xl my-2 text-white">Category</label>
                         <select id='category' defaultValue="" {...register('category', { required: 'Category must Required' })}
                             className="select select-bordered w-full">
                             <option value='' disabled hidden>Choose Category</option>
-                            <option value="Web Design">Web Design</option>
-                            <option value="Digital Marketing">Digital Marketing</option>
-                            <option value="Graphic Design">Graphic Design</option>
-                            <option value="SEO">Search Engine Optimization</option>
-                            <option value="Programming">Programming</option>
+                            <option className='text-white' value="Web Design">Web Design</option>
+                            <option className='text-white' value="Digital Marketing">Digital Marketing</option>
+                            <option className='text-white' value="Graphic Design">Graphic Design</option>
+                            <option className='text-white' value="SEO">Search Engine Optimization</option>
+                            <option className='text-white' value="Programming">Programming</option>
                         </select>
                         {errors.category && <p className='text-red-500'>{errors.category.message}</p>}
                     </div>

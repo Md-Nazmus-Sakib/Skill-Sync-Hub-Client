@@ -4,10 +4,12 @@ import useAuth from '../../Hook/useAuth';
 import useAxiosSecret from '../../Hook/useAxiosSecret';
 import Swal from 'sweetalert2';
 import './CheckoutForm.css'
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({ price, singleCourse }) => {
 
     const { _id, title, teacherEmail } = singleCourse;
+    const navigate = useNavigate();
     const stripe = useStripe()
     const elements = useElements();
     const { user } = useAuth();
@@ -21,7 +23,7 @@ const CheckoutForm = ({ price, singleCourse }) => {
             axiosSecure.post('/create-payment-intent', { price })
 
                 .then(res => {
-                    console.log(res.data.clientSecret)
+
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -48,7 +50,7 @@ const CheckoutForm = ({ price, singleCourse }) => {
         if (error) {
             console.log('[error]', error);
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
         }
         setProcessing(true)
 
@@ -67,7 +69,7 @@ const CheckoutForm = ({ price, singleCourse }) => {
         if (confirmError) {
             console.log(confirmError)
         }
-        console.log(paymentIntent)
+        // console.log(paymentIntent)
         setProcessing(false)
         if (paymentIntent.status === 'succeeded') {
             setTransactionID(paymentIntent.id);
@@ -100,18 +102,7 @@ const CheckoutForm = ({ price, singleCourse }) => {
                         axiosSecure.post('/student', studentInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    axiosSecure.patch(`/users/student/${user?.email}`)
-                                        .then(res => {
-                                            if (res.data.modifiedCount > 0) {
-                                                Swal.fire({
-                                                    position: 'top-end',
-                                                    icon: 'success',
-                                                    title: 'Payment Successfully',
-                                                    showConfirmButton: false,
-                                                    timer: 1500
-                                                })
-                                            }
-                                        })
+                                    // console.log('student')
 
 
                                 }
@@ -119,6 +110,22 @@ const CheckoutForm = ({ price, singleCourse }) => {
 
                     }
                 })
+            axiosSecure.patch(`/users/student/${user?.email}`)
+                .then(res => {
+                    // console.log(res.data)
+                    if (res.data.modifiedCount > 0) {
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Payment Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                    navigate('/dashboard/enrollClass')
+                })
+
 
         }
     }

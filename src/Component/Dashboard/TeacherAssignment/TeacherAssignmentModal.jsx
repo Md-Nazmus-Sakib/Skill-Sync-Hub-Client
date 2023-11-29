@@ -58,27 +58,27 @@ const TeacherAssignmentModal = () => {
 
                     <form onSubmit={handleSubmit(handelAssignmentSave)}>
                         <div className="form-control w-full">
-                            <label htmlFor="title22" className="text-xl my-2">Title</label>
+                            <label htmlFor="title22" className="text-xl my-2 text-white">Title</label>
                             <input id='title22' autoComplete="title" type="text" {...register("title", {
                                 required: "Title is Required"
-                            })} className="input input-bordered w-full" />
+                            })} className="input input-bordered w-full text-white" />
                             {errors.title && <p className='text-red-500'>{errors.title.message}</p>}
                         </div>
 
 
                         <div className="form-control w-full">
-                            <label htmlFor="description" className="text-xl my-2">Description</label>
+                            <label htmlFor="description" className="text-xl my-2 text-white">Description</label>
                             <textarea id='description' type="textarea" {...register("description", {
                                 required: "description is Required"
-                            })} className="input input-bordered h-36 w-full" />
+                            })} className="input input-bordered h-36 w-full text-white" />
 
                             {errors.description && <p className='text-red-500'>{errors.description.message}</p>}
                         </div>
                         <div className="form-control w-full">
-                            <label htmlFor="deadline" className="text-xl my-2">Deadline</label>
+                            <label htmlFor="deadline" className="text-xl my-2 text-white">Deadline</label>
                             <input id='deadline' type="date" {...register("deadline", {
                                 required: "deadline is Required"
-                            })} className="input input-bordered w-full" />
+                            })} className="input input-bordered w-full text-white" />
                             {errors.deadline && <p className='text-red-500'>{errors.deadline.message}</p>}
                         </div>
 

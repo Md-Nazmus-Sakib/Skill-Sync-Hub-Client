@@ -93,11 +93,11 @@ const MyClass = () => {
                             {teacherClass?.title}
 
                         </h2>
-                        <div className='flex justify-between'>
+                        <div className='flex justify-between items-center'>
 
                             <p>Status: {teacherClass?.status === 'pending' ? <span className='text-xl text-orange-300 font-semibold'>{teacherClass?.status}</span> : <span>{teacherClass?.status}</span>}</p>
                             <div className="card-actions justify-end">
-                                <label onClick={() => handelModal(teacherClass)} className="badge badge-outline bg-indigo-500 ">Update</label>
+                                <button onClick={() => handelModal(teacherClass)} className="badge badge-outline bg-indigo-500 ">Update</button>
                                 <button onClick={() => handelDelete(teacherClass?._id)} className="badge badge-outline bg-orange-500 ">Delete</button>
                             </div>
                         </div>

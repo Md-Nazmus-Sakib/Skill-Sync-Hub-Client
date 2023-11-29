@@ -2,6 +2,7 @@
 import useAxiosSecret from '../../../Hook/useAxiosSecret';
 import useAllClass from '../../../Hook/useAllClass';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const AllClass = () => {
     const [courses, loading, coursesRefetch] = useAllClass();
@@ -119,8 +120,12 @@ const AllClass = () => {
                                         <td><button disabled className='btn btn-warning text-white'>Reject</button></td>
                                 }
                                 {
-                                    course?.status === 'approved' ? <td><button className='btn btn-secondary text-white'>SeeProgress</button></td> :
-                                        <td><button disabled className='btn btn-secondary text-white'>SeeProgress</button></td>
+                                    course?.status === 'approved' ? <td>
+                                        <Link to={`/dashboard/myClass/${course?._id}`}> <button className='btn btn-secondary text-white'>SeeProgress</button>  </Link>
+                                    </td> :
+                                        <td><button disabled className='btn btn-secondary text-white'>SeeProgress</button>
+
+                                        </td>
                                 }
 
 

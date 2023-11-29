@@ -8,11 +8,12 @@ const Navbar = () => {
     const { user, loading, setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
     const [userRole, isLoading] = useUserRole();
     // const [eachUser] = useSingleUser();
-    // const role = userRole.role;
-    if (isLoading) {
+
+    if (isLoading || loading) {
         return <p>Loading ...</p>
     }
-    const userStatus = userRole.role;
+    const role = userRole.role;
+    // const userStatus = userRole.role;
     const handelLogout = () => {
         logOut()
             .then(() => { })
@@ -72,14 +73,24 @@ const Navbar = () => {
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gradient-to-r from-black to-fuchsia-500 text-white rounded-box w-52">
 
-                        <li>{user?.displayName}</li>
+                        <li className='p-2'>{user?.displayName}</li>
                         {
-                            userStatus && <li>
-                                <Link to={'dashboard'}>Dashboard</Link>
+                            role === 'Admin' && <li >
+                                <Link className='m-0 p-2' to={'/dashboard/request'}>Dashboard</Link>
+                            </li>
+                        }
+                        {
+                            role === 'Teacher' && <li >
+                                <Link className='m-0 p-2' to={'/dashboard/addClass'}>Dashboard</Link>
+                            </li>
+                        }
+                        {
+                            role === 'Student' && <li >
+                                <Link className='m-0 p-2' to={'/dashboard/enrollClass'}>Dashboard</Link>
                             </li>
                         }
 
-                        <li><Link onClick={handelLogout} >LogOut</Link></li>
+                        <li><button className='btn btn-ghost m-0 p-2' onClick={handelLogout} >LogOut</button></li>
                     </ul>
                 </div> :
                     <div className='text-white'> <NavLink to={'/login'}>Login</NavLink></div>

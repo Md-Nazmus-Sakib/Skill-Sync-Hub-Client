@@ -24,18 +24,15 @@ const FeedbackSection = () => {
             <div>
                 <Swiper
                     effect={'coverflow'}
-                    // spaceBetween={50}
                     grabCursor={true}
                     loop={true}
                     centeredSlides={true}
                     breakpoints={{
                         300: {
                             slidesPerView: 1,
-
                         },
                         768: {
                             slidesPerView: 3,
-                            // spaceBetween: 20,
                         },
 
                     }}
@@ -46,7 +43,7 @@ const FeedbackSection = () => {
 
                     }}
 
-                    // slidesPerView={3}
+                    // slidesPerView={1}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
@@ -57,7 +54,7 @@ const FeedbackSection = () => {
                     navigation={true}
                     pagination={true}
                     modules={[EffectCoverflow, Pagination, Autoplay, Navigation]}
-                    // modules={[Autoplay, Pagination, Navigation]}
+
                     className="mySwiper">
 
                     {

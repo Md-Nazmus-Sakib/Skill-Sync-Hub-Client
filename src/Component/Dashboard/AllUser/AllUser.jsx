@@ -48,7 +48,7 @@ const AllUser = () => {
                 <h2 className='text-xl my-4'>Total User: {users.length}</h2>
             </div>
             <div>
-                <div className="overflow-x-auto my-12">
+                <div className="overflow-x-scroll my-12">
                     <table className="table md:text-2xl">
                         {/* head */}
                         <thead>

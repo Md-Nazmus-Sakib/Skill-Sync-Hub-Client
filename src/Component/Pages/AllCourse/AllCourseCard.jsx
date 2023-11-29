@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AllCourseCard = ({ course }) => {
-    const { _id, coursePhoto, title, details, price, teacherName, teacherPhoto } = course;
+    const { _id, coursePhoto, title, details, price, teacherName, teacherPhoto, numberOfStudents } = course;
     return (
         <div>
             <div className="card card-compact bg-base-100 shadow-xl h-[600px]">
@@ -24,7 +24,7 @@ const AllCourseCard = ({ course }) => {
 
                         <div className="stat">
                             <div className="stat-title">Total Enroll</div>
-                            <div className="stat-value">4,200</div>
+                            <div className="stat-value">{numberOfStudents}</div>
                         </div>
 
                         <div className="stat">
@@ -43,32 +43,3 @@ const AllCourseCard = ({ course }) => {
 };
 
 export default AllCourseCard;
-
-
-// coursePhoto
-// :
-// "https://www.pnjsharptech.com/blog/wp-content/uploads/2020/07/Web-Designing-vs-Web-Development.jpg"
-// details
-// :
-// "Web design refers to the design of websites. It usually refers to the user experience aspects of website development rather than software development."
-// price
-// :
-// 1999
-// status
-// :
-// "approved"
-// teacherEmail
-// :
-// "asd@asd.com"
-// teacherName
-// :
-// "asd"
-// teacherPhoto
-// :
-// "https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/303100/303157.jpg"
-// title
-// :
-// "Web design"
-// _id
-// :
-// "6561f00912e034fc1c2a8055"

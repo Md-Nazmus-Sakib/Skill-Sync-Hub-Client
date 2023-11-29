@@ -1,13 +1,12 @@
 import React from 'react';
 import { FaHome } from 'react-icons/fa';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import useUserRole from '../../Hook/useUserRole';
-import useSingleUser from '../../Hook/useSingleUser';
+
 
 const DashboardLayout = () => {
     const [userRole, isLoading] = useUserRole();
-    // const [eachUser] = useSingleUser();
-    // const role = userRole.role;
+
     if (isLoading) {
         return <p>Loading ...</p>
     }
@@ -27,10 +26,12 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-60 min-h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
                         {
-                            userStatus === 'Admin' && <> <li><NavLink to={'/dashboard/request'}>Teacher Request</NavLink></li>
-                                <li><NavLink to={'/dashboard/users'}>All User</NavLink></li>
-                                <li><NavLink to={'/dashboard/classes'}>All Class</NavLink></li>
-                                <li><NavLink to={'/dashboard/profile'}>Profile</NavLink></li></>
+                            userStatus === 'Admin' && <>
+
+                                <li ><NavLink to={'/dashboard/request'}>Teacher Request</NavLink></li>
+                                <li ><NavLink to={'/dashboard/users'}>All User</NavLink></li>
+                                <li ><NavLink to={'/dashboard/classes'}>All Class</NavLink></li>
+                                <li ><NavLink to={'/dashboard/profile'}>Profile</NavLink></li></>
                         }
                         {
                             userStatus === 'Teacher' && <>

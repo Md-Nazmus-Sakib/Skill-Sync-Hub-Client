@@ -83,22 +83,22 @@ const Login = () => {
                 <h2 className='text-3xl text-center text-white'>Login</h2>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full">
-                        <label htmlFor="email1" className="text-xl my-2">Email</label>
+                        <label htmlFor="email1" className="text-xl my-2 text-white">Email</label>
                         <input id='email1' autoComplete="email" type="email"
                             {...register("email", {
                                 required: "Email Address is required"
                             })}
-                            className="input input-bordered w-full" />
+                            className="input input-bordered w-full text-white" />
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                     </div>
                     <div className="form-control w-full">
-                        <label htmlFor="password1" className="text-xl my-2">Password</label>
+                        <label htmlFor="password1" className="text-xl my-2 text-white">Password</label>
                         <input id='password1' type="password"
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: { value: 6, message: 'Password must be 6 characters or longer' }
                             })}
-                            className="input input-bordered w-full" />
+                            className="input input-bordered w-full text-white" />
 
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
