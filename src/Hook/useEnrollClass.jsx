@@ -6,7 +6,7 @@ import useAuth from './useAuth';
 const useEnrollClass = () => {
     const axiosSecure = useAxiosSecret();
     const { user } = useAuth();
-    const { data: enrollCourse = [] } = useQuery({
+    const { data: enrollCourse = [], loading: enrollLoading } = useQuery({
         queryKey: ['enrollCourse'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/enrollClass/${user?.email}`);
@@ -14,7 +14,7 @@ const useEnrollClass = () => {
         }
     })
 
-    return [enrollCourse]
+    return [enrollCourse, enrollLoading]
 };
 
 export default useEnrollClass;

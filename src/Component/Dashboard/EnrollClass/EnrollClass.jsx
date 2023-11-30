@@ -6,8 +6,14 @@ import { Link } from 'react-router-dom';
 
 const EnrollClass = () => {
     const { user } = useAuth();
-    const [enrollCourse] = useEnrollClass();
+    const [enrollCourse, enrollLoading] = useEnrollClass();
     // console.log(enrollCourse)
+    if (enrollLoading) {
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
+    }
+
     return (
         <div className='my-12 '>
             <h1 className='text-5xl text-center'>Welcome <span className='text-orange-600 font-extrabold'>{user?.displayName}</span> </h1>
