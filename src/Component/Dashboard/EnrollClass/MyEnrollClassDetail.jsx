@@ -96,37 +96,39 @@ const MyEnrollClassDetail = () => {
                 </div>
             </div>
             <div>
-                <div className="overflow-x-auto my-12">
-                    <table className="table md:text-2xl">
-                        {/* head */}
-                        <thead>
-                            <tr className='md:text-2xl text-white'>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Deadline</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody className='text-slate-200'>
-                            {assignments.map((assignment, index) => <tr
-                                key={assignment._id}
-                            >
-                                <td>{index + 1} </td>
-                                <td>{assignment?.title}</td>
-                                <td>{assignment?.description} </td>
-                                <td>{assignment?.deadline}</td>
+                {
+                    assignments?.length > 0 ? <div className="overflow-x-auto my-12">
+                        <table className="table md:text-2xl">
+                            {/* head */}
+                            <thead>
+                                <tr className='md:text-2xl text-white'>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody className='text-slate-200'>
+                                {assignments?.map((assignment, index) => <tr
+                                    key={assignment._id}
+                                >
+                                    <td>{index + 1} </td>
+                                    <td>{assignment?.title}</td>
+                                    <td>{assignment?.description} </td>
+                                    <td>{assignment?.deadline}</td>
 
 
-                                <td>
-                                    <button onClick={() => handelAssignmentComplete(assignment)} className='btn btn-primary'>Submit</button>
-                                </td>
-                            </tr>)}
+                                    <td>
+                                        <button onClick={() => handelAssignmentComplete(assignment)} className='btn btn-primary'>Submit</button>
+                                    </td>
+                                </tr>)}
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
-                </div>
+                        </table>
+                    </div> : <h1 className='text-3xl font-extrabold text-center my-24'>No Assignment Added Yet !!</h1>
+                }
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import useAxiosSecret from './useAxiosSecret';
 import { useQuery } from '@tanstack/react-query';
 
 const useAllClass = () => {
+
     const axiosSecure = useAxiosSecret();
     const { data: courses = [], isPending: loading, refetch: coursesRefetch } = useQuery({
         queryKey: ['courses'],

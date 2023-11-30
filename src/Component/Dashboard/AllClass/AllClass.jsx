@@ -70,6 +70,11 @@ const AllClass = () => {
         })
 
     }
+    if (loading) {
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
+    }
 
     return (
         <div>

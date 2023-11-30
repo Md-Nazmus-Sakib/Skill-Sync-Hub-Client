@@ -3,7 +3,12 @@ import useSingleUser from '../../../Hook/useSingleUser';
 import { Tilt } from 'react-tilt';
 
 const Profile = () => {
-    const [eachUser] = useSingleUser();
+    const [eachUser, loading, userRefetch] = useSingleUser();
+    if (loading) {
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
+    }
     // console.log(eachUser)
     return (
         <div className='my-12 flex justify-center p-4'>

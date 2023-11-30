@@ -1,16 +1,31 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import logo from '../../../assets/Images/logo/logo.png'
 import useAuth from '../../../Hook/useAuth';
 import useUserRole from '../../../Hook/useUserRole';
+import { FaSearch } from 'react-icons/fa';
+
+import { useRef } from 'react';
+
+
+
 
 const Navbar = () => {
-    const { user, loading, setLoading, createUser, signIn, logOut, updateUserProfile, googleSignIn } = useAuth();
+    const { user, loading, setLoading, createUser, signIn, logOut, setSearchValue } = useAuth();
     const [userRole, isLoading] = useUserRole();
-    // const [eachUser] = useSingleUser();
-
+    const searchInputRef = useRef(null);
+    const navigate = useNavigate();
+    const handelSearch = (e) => {
+        e.preventDefault();
+        const searchTerm = (searchInputRef.current.value).toLowerCase();
+        setSearchValue(searchTerm)
+        navigate('/allCourse')
+        searchInputRef.current.value = '';
+    }
     if (isLoading || loading) {
-        return <p>Loading ...</p>
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
     }
     const role = userRole.role;
     // const userStatus = userRole.role;
@@ -24,7 +39,7 @@ const Navbar = () => {
     const pages = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
 
-        <li><NavLink to={'/allCourse'}>All Course</NavLink></li>
+        <li><NavLink to={'/allCourse'} onClick={() => setSearchValue('')} >All Course</NavLink></li>
         <li><NavLink to={'/teachOn'}>Teach On</NavLink></li>
 
 
@@ -41,7 +56,19 @@ const Navbar = () => {
                         {
                             pages
                         }
+                        <div className="form-control relative w-48 h-10">
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                placeholder="Search"
+                                className="input input-bordered h-10 w-full pl-10 text-white"
+                            />
+                            <button onClick={handelSearch} className='bg-transparent absolute left-0'>
+                                <FaSearch />
+                            </button>
+                        </div>
                     </ul>
+
                 </div>
 
                 <div className="normal-case text-xl p-2 flex items-center text-white">
@@ -50,26 +77,37 @@ const Navbar = () => {
 
                 </div>
 
+
             </div>
             <div className="navbar-center hidden lg:flex items-center">
+                <div className="form-control relative w-56 flex m-0 p-0 ">
+                    <input
+                        ref={searchInputRef}
+                        type="text"
+                        placeholder="Search"
+                        className="input input-bordered h-9 w-full m-0 pl-10 text-white"
+                    />
+                    <button onClick={handelSearch} className='bg-transparent m-0 absolute top-0 left-0 group'>
+                        <FaSearch />
+                    </button>
+                </div>
                 <ul className="menu menu-horizontal px-1 uppercase text-white">
                     {
                         pages
                     }
+
                 </ul>
             </div>
-            {/* log out and login condition by user  */}
+
             {
                 user ? <div className="dropdown dropdown-end mx-4">
                     <label tabIndex={0}>
                         <div className="avatar">
-                            <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <div className="w-8 sm:w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                 <img src={user?.photoURL} />
                             </div>
                         </div>
-                        {/* <div className="w-10 rounded-full">
-                            <img alt="Tailwind CSS Navbar component" />
-                        </div> */}
+
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gradient-to-r from-black to-fuchsia-500 text-white rounded-box w-52">
 
@@ -96,6 +134,8 @@ const Navbar = () => {
                     <div className='text-white'> <NavLink to={'/login'}>Login</NavLink></div>
 
             }
+
+
 
 
         </div>

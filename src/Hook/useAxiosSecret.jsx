@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useEffect } from 'react';
 
 const axiosSecure = axios.create({
-    baseURL: 'https://skill-sync-hub-server.vercel.app'
+    baseURL: 'http://localhost:5000'
 })
 const useAxiosSecret = () => {
     const { logOut } = useAuth();

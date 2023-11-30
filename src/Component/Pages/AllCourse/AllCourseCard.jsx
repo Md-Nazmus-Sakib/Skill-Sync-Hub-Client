@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AllCourseCard = ({ course }) => {
+
     const { _id, coursePhoto, title, details, price, teacherName, teacherPhoto, numberOfStudents } = course;
     return (
         <div>

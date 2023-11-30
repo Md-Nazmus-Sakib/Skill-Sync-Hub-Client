@@ -6,7 +6,7 @@ import useSingleClass from '../../../Hook/useSingleClass';
 import Swal from 'sweetalert2';
 import useAxiosSecret from '../../../Hook/useAxiosSecret';
 
-const TeacherAssignmentModal = () => {
+const TeacherAssignmentModal = ({ progressRefetch }) => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { id } = useParams();
@@ -32,6 +32,7 @@ const TeacherAssignmentModal = () => {
 
                     reset()
                     document.getElementById('my_modal_8').close()
+                    progressRefetch();
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

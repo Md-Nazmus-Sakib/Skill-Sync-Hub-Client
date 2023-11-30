@@ -20,7 +20,9 @@ const EnrollClass = () => {
                         </div>
                         <div className='mx-auto'>
                             <h2 className="card-title">{course.title}</h2>
+                            <h2 className="text-sm text-slate-300 my-4">Teacher Info</h2>
                             <div className='flex justify-center items-center gap-6'>
+
                                 <img className='w-12 h-12 rounded-full' src={course.teacherPhoto} />
                                 <p className="text-sm text-slate-300">{course.teacherName}</p>
                             </div>

@@ -8,7 +8,9 @@ const DashboardLayout = () => {
     const [userRole, isLoading] = useUserRole();
 
     if (isLoading) {
-        return <p>Loading ...</p>
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
     }
     const userStatus = userRole.role;
     // console.log(userStatus)
@@ -43,8 +45,9 @@ const DashboardLayout = () => {
                         {
                             userStatus === 'Student' && <>
                                 <li><NavLink to={'/dashboard/enrollClass'}>My Enroll Class</NavLink></li>
-
+                                <li><NavLink to={'/dashboard/myOrder'}>My Order</NavLink></li>
                                 <li><NavLink to={'/dashboard/profile'}>Profile</NavLink></li>
+
                             </>
                         }
 

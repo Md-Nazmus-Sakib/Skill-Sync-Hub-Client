@@ -4,7 +4,7 @@ import useAxiosSecret from '../../../Hook/useAxiosSecret';
 import Swal from 'sweetalert2';
 
 const AllUser = () => {
-    const [users, , userRefetch] = useAllUser();
+    const [users, loading, userRefetch] = useAllUser();
     const axiosSecure = useAxiosSecret();
     const handelMakeAdmin = (user) => {
         Swal.fire({
@@ -40,7 +40,11 @@ const AllUser = () => {
 
     }
 
-
+    if (loading) {
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <span className="loading loading-bars loading-lg text-secondary"></span>
+        </div>
+    }
     return (
         <div>
             <div className='  text-center uppercase text-3xl font-semibold px-4 my-12'>
